@@ -87,11 +87,20 @@ async function processFolder(handle) {
         if (entry.kind === 'file') {
             const file = await entry.getFile();
             const ext = file.name.split('.').pop().toLowerCase();
-            if (['pdf'].includes(ext)) {
+            if (['pdf', 'epub', 'cbz'].includes(ext)) {
                 const stored = await getStoredBookData(file.name);
-                const pdf = await pdfjsLib.getDocument({data: await file.arrayBuffer()}).promise;
-                const pageCount = pdf.numPages; // Get total pages
-                books.push({
+                let pageCount = 0;
+                // ONLY run the PDF-specific logic if the file is a PDF
+                    if (ext === 'pdf') {
+                        try {
+                            const pdfData = await file.arrayBuffer();
+                            const pdf = await pdfjsLib.getDocument({data: pdfData}).promise;
+                            pageCount = pdf.numPages;
+                        } catch (e) {
+                            console.warn("Skipping page count for:", file.name);
+                        }
+                    }
+                    books.push({
                     id: Math.random().toString(36).substr(2, 9),
                     name: file.name, blob: file, size: file.size, date: file.lastModified, type: ext,
                     pages: pageCount, lastAccessed: new Date().toLocaleString(),
