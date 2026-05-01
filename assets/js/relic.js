@@ -87,7 +87,7 @@ async function processFolder(handle) {
         if (entry.kind === 'file') {
             const file = await entry.getFile();
             const ext = file.name.split('.').pop().toLowerCase();
-            if (['pdf', 'epub', 'cbz'].includes(ext)) {
+            if (['pdf'].includes(ext)) {
                 const stored = await getStoredBookData(file.name);
                 const pdf = await pdfjsLib.getDocument({data: await file.arrayBuffer()}).promise;
                 const pageCount = pdf.numPages; // Get total pages
