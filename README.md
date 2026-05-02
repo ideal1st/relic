@@ -5,6 +5,7 @@ permalink: /readme
 ---
 ### RELIC
 > Research Library Companion
+
 Clone, fork, or self-host the repo [here](https://github.com/ideal1st/relic).
 
 #### Introduction
@@ -25,3 +26,6 @@ Yes, it runs on any host.
 
 ##### Can I access Relic on a mobile browser?
 Technically, you can. But the only use case Relic is meant for is literature study done on computers.
+
+##### Wait a sec. So, Relic only works on PDF files?
+Yes, you're right. So far Relic only works on PDF files. Support for EPUB and CBZ may ship later in the future tho.
