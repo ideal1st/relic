@@ -29,3 +29,19 @@ mark { background-color: #ffeb3b; color: black; padding: 0; border-radius: 2px; 
     height: auto !important;
 }
 .cursor-pointer { cursor: pointer; }
+
+#epub-controls {
+    opacity: 1; /* Default state */
+    transition: opacity 0.3s ease-in-out;
+    z-index: 10; /* Ensure it stays above the viewer */
+}
+
+/* When the viewer is active, we apply a 'dimmed' class via JS */
+#epub-controls.dimmed {
+    opacity: 0.1;
+}
+
+/* Hover always overrides everything for accessibility */
+#epub-controls:hover {
+    opacity: 1 !important;
+}
