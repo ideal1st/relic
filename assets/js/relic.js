@@ -179,7 +179,7 @@ async function processFolder(handle) {
 
 // --- RENDER ENGINES ---
 
-async function renderPDFMobile(blob, pageNum = 1) {
+/*async function renderPDFMobile(blob, pageNum = 1) {
     const canvas = document.getElementById('pdf-canvas');
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -194,7 +194,7 @@ async function renderPDFMobile(blob, pageNum = 1) {
     canvas.height = viewport.height; canvas.width = viewport.width;
     await page.render({ canvasContext: context, viewport: viewport }).promise;
     URL.revokeObjectURL(url);
-}
+}*/
 
 function renderEPUB(blob) {
     if (typeof ePub === 'undefined') return;
@@ -273,10 +273,10 @@ function openBook(id) {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     if (b.type === 'pdf') {
-        if (isMobile) {
+        /*if (isMobile) {
             viewers.canvas.style.display = 'block';
             renderPDFMobile(b.blob);
-        } else {
+        } else {*/
             const fileURL = URL.createObjectURL(b.blob);
             // Path to your local PDF.js viewer
             const viewerPath = '/assets/pdfjs/web/viewer.html'; 
@@ -292,7 +292,7 @@ function openBook(id) {
                     document.getElementById('note-cfi').value = pageNum;
                 });
             };
-        }
+        //}
     } else if (b.type === 'epub') {
         viewers.epub.style.display = 'block';
         renderEPUB(b.blob);
@@ -379,13 +379,13 @@ async function jumpToLocation(val) {
     if (b.type === 'epub' && currentRendition) {
         currentRendition.display(val);
     } else if (b.type === 'pdf') {
-        if (isMobile) {
+        /*if (isMobile) {
             renderPDFMobile(b.blob, parseInt(val));
-        } else {
+        } else {*/
             const viewerFrame = document.getElementById('pdf-viewer-frame');
             const viewerApp = viewerFrame.contentWindow.PDFViewerApplication;
             if (viewerApp) viewerApp.page = parseInt(val);
-        }
+        //}
     } else if (b.type === 'cbz') {
         const imgs = document.querySelectorAll('.cbz-page');
         if (imgs[parseInt(val)-1]) imgs[parseInt(val)-1].scrollIntoView({ behavior: 'smooth' });
